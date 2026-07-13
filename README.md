@@ -4,7 +4,7 @@ Un plugin de panel altamente interactivo, dinámico y estéticamente premium par
 
 Desarrollado y mantenido por **DkCorpBo**.
 
-![Logo del Plugin](src/img/logo.svg)
+![Vista Previa del Plugin](src/img/preview.png)
 
 ---
 
@@ -36,9 +36,9 @@ Desarrollado y mantenido por **DkCorpBo**.
 ### 💬 Sistema de Doble Tooltip (Hover y Clic Fijo)
 * **Hover Ligero:** Al pasar el cursor por encima de una barra, aparece de forma instantánea una burbuja oscura que muestra el nombre de la tarea sin bloquear la vista ni clics.
 * **Clic Fijo con Detalles:** Al hacer clic izquierdo en una barra de actividad o proyecto, se abre un tooltip interactivo fijo en el punto de clic con:
-  * Nombre de la tarea, fechas exactas de inicio y fin, duración y porcentaje de progreso.
+  * Nombre de la tarea, fechas exactas de inicio y fin, duración y progreso.
   * **Campos Extra Dinámicos:** Puedes definir en una caja de texto qué columnas adicionales de tu consulta (ej: `estado, responsable, prioridad`) quieres mostrar en esta ficha de detalles.
-  * **Data Links Integrados:** Un botón con enlace directo (`href` y `target`) para navegar a otras pantallas de edición o detalles nativos de Grafana.
+  * **Data Links Integrados:** Un botón con enlace directo (`href` y `target`) para navegar a otras pantallas de detalles nativos de Grafana.
 
 ### 📐 Tipografía Ultranítida y Diseños Flexibles
 * **Suavizado de Fuente (Font-Smoothing antialiasing):** Aplicado por CSS para garantizar bordes limpios en textos pequeños dentro del SVG.
@@ -76,7 +76,7 @@ Desarrollado y mantenido por **DkCorpBo**.
 Para utilizar el plugin de manera privada o en servidores de producción sin firmar, puedes habilitar el modo de desarrollo en la configuración de Grafana (`grafana.ini`):
 ```ini
 [plugins]
-allow_loading_unsigned_plugins = avicolasofia-cronograma-panel
+allow_loading_unsigned_plugins = cronograma-gantt-panel
 ```
 
 ---

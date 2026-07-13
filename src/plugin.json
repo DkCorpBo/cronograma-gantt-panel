@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "Cronograma (Gantt)",
-  "id": "avicolasofia-cronograma-panel",
+  "id": "cronograma-gantt-panel",
   "info": {
     "keywords": ["panel", "gantt", "cronograma", "timeline"],
     "description": "Cronograma (Gantt) altamente personalizable y jerárquico con múltiples niveles de agrupación, leyendas de estado y controles interactivos.",

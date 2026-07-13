@@ -1,7 +1,7 @@
 services:
   grafana:
     user: root
-    container_name: 'avicolasofia-cronograma-panel'
+    container_name: 'cronograma-gantt-panel'
 
     build:
       context: ./.config
@@ -12,13 +12,13 @@ services:
     ports:
       - 3000:3000/tcp
     volumes:
-      - ./dist:/var/lib/grafana/plugins/avicolasofia-cronograma-panel
+      - ./dist:/var/lib/grafana/plugins/cronograma-gantt-panel
       - ./provisioning:/etc/grafana/provisioning
-      - .:/root/avicolasofia-cronograma-panel
+      - .:/root/cronograma-gantt-panel
 
     environment:
       NODE_ENV: development
-      GF_LOG_FILTERS: plugin.avicolasofia-cronograma-panel:debug
+      GF_LOG_FILTERS: plugin.cronograma-gantt-panel:debug
       GF_LOG_LEVEL: debug
       GF_DATAPROXY_LOGGING: 1
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: avicolasofia-cronograma-panel
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: cronograma-gantt-panel

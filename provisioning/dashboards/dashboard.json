@@ -50,7 +50,7 @@
         }
       ],
       "title": "Panel Title",
-      "type": "avicolasofia-cronograma-panel"
+      "type": "cronograma-gantt-panel"
     },
     {
       "datasource": {
@@ -81,7 +81,7 @@
         }
       ],
       "title": "Panel Title",
-      "type": "avicolasofia-cronograma-panel"
+      "type": "cronograma-gantt-panel"
     }
   ],
   "refresh": "",
