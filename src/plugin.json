@@ -5,7 +5,7 @@
   "id": "avicolasofia-cronograma-panel",
   "info": {
     "keywords": ["panel", "gantt", "cronograma", "timeline"],
-    "description": "Cronograma de Actividades (Gantt) altamente personalizable y jerárquico con múltiples niveles de agrupación, leyendas de estado y controles interactivos por DkCorpBo.",
+    "description": "Cronograma (Gantt) altamente personalizable y jerárquico con múltiples niveles de agrupación, leyendas de estado y controles interactivos.",
     "author": {
       "name": "DkCorpBo"
     },

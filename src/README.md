@@ -1,49 +1,45 @@
-<!-- This README file is going to be the one displayed on the Grafana.com website for your plugin. Uncomment and replace the content here before publishing.
+# Cronograma (Gantt) - Panel Plugin de Grafana
 
-Remove any remaining comments before publishing as these may be displayed on Grafana.com -->
+Un plugin de panel altamente interactivo, dinámico y estéticamente premium para Grafana que permite visualizar cronogramas y líneas de tiempo tipo **Gantt**.
 
-# Cronograma-Panel
+Desarrollado y mantenido por **DkCorpBo**.
 
-<!-- To help maximize the impact of your README and improve usability for users, we propose the following loose structure:
+---
 
-**BEFORE YOU BEGIN**
-- Ensure all links are absolute URLs so that they will work when the README is displayed within Grafana and Grafana.com
-- Be inspired ✨
-  - [grafana-polystat-panel](https://github.com/grafana/grafana-polystat-panel)
-  - [volkovlabs-variable-panel](https://github.com/volkovlabs/volkovlabs-variable-panel)
+## ✨ Características Principales
 
-**ADD SOME BADGES**
+### 📁 Estructura Jerárquica e Hilos de Agrupación Ilimitados
+* **Agrupación en cascada dinámica:** Permite seleccionar múltiples columnas de la consulta de base de datos a través de una barra de etiquetas interactiva (ej: `Gerencia > Equipo > Proyecto`).
+* **Niveles ilimitados:** Sin límites artificiales de profundidad. Puedes agrupar tus actividades por tantos niveles jerárquicos como necesites.
+* **Colapso/Expansión:** Carpetas y proyectos con controles `▶` y `▼` para optimizar el espacio en dashboards complejos.
 
-Badges convey useful information at a glance for users whether in the Catalog or viewing the source code. You can use the generator on [Shields.io](https://shields.io/badges/dynamic-json-badge) together with the Grafana.com API
-to create dynamic badges that update automatically when you publish a new version to the marketplace.
+### 🟠 Barras de Resumen de Proyectos
+* Las agrupaciones de nivel inferior (proyectos) se pintan de forma predeterminada en color **Naranja Premium** (`#E65100`).
+* Muestran el nombre del proyecto centrado directamente en su barra.
+* Calculan de forma automática la barra de progreso promedio y el rango temporal (fecha mínima y máxima) en base al estado de sus actividades hijas.
 
-- For the logo field use 'grafana'.
-- Examples (label: query)
-  - Downloads: $.downloads
-  - Catalog Version: $.version
-  - Grafana Dependency: $.grafanaDependency
-  - Signature Type: $.versionSignatureType
+### 🎨 Leyenda y Coloreo Automático por Estado (SQL)
+* **Colores por Estado Automatizados:** Si no se define un color en la consulta SQL, el plugin lee la columna `Estado` (o `status`) y asigna colores automáticamente:
+  * 🟢 **Actividad Iniciada** (`Iniciada`, `Iniciado`, `En Progreso`) -> Verde.
+  * 🔵 **Actividad Finalizada** (`Finalizada`, `Finalizado`, `Completado`, `Completada`) -> Azul.
+  * 🟡 **Actividad Creada** (`Creada`, `Creado`, `Pendiente`, `Nueva`, `Nuevo`) -> Amarillo/Dorado.
+* **100% Configurable:** Puedes activar/desactivar la barra de leyenda superior y personalizar cada uno de estos colores desde la barra lateral derecha del editor.
 
-Full example: ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?logo=grafana&query=$.version&url=https://grafana.com/api/plugins/grafana-polystat-panel&label=Marketplace&prefix=v&color=F47A20)
+### 🔍 Controles Temporales Interactivos y Zoom
+* **Navegación Intuitiva:** Botones integrados de `Acercar` (Zoom In), `Alejar` (Zoom Out), `Izquierda` (Pan Left), `Derecha` (Pan Right) y `Restablecer Rango` al período temporal de la consulta global de Grafana.
+* **Zoom con Rueda:** Haz zoom continuo girando la rueda del ratón (Mouse Wheel Zoom) centrado en la posición de tu cursor.
+* **Desplazamiento con Arrastre:** Mantén presionado el clic y arrastra lateralmente para desplazarte (pan/drag) a lo largo del tiempo.
+* **Indicador Temporal "Ahora":** Una línea roja vertical discontinua con la etiqueta "Ahora" que se actualiza en tiempo real en base a la hora de tu servidor/máquina local.
 
-Consider other [badges](https://shields.io/badges) as you feel appropriate for your project.
+### 💬 Sistema de Doble Tooltip (Hover y Clic Fijo)
+* **Hover Ligero:** Al pasar el cursor por encima de una barra, aparece de forma instantánea una burbuja oscura que muestra el nombre de la tarea sin bloquear la vista ni clics.
+* **Clic Fijo con Detalles:** Al hacer clic izquierdo en una barra de actividad o proyecto, se abre un tooltip interactivo fijo en el punto de clic con:
+  * Nombre de la tarea, fechas exactas de inicio y fin, duración y progreso.
+  * **Campos Extra Dinámicos:** Puedes definir en una caja de texto qué columnas adicionales de tu consulta (ej: `estado, responsable, prioridad`) quieres mostrar en esta ficha de detalles.
+  * **Data Links Integrados:** Un botón con enlace directo (`href` y `target`) para navegar a otras pantallas de detalles nativos de Grafana.
 
-## Overview / Introduction
-Provide one or more paragraphs as an introduction to your plugin to help users understand why they should use it.
-
-Consider including screenshots:
-- in [plugin.json](https://grafana.com/developers/plugin-tools/reference/plugin-json#info) include them as relative links.
-- in the README ensure they are absolute URLs.
-
-## Requirements
-List any requirements or dependencies they may need to run the plugin.
-
-## Getting Started
-Provide a quick start on how to configure and use the plugin.
-
-## Documentation
-If your project has dedicated documentation available for users, provide links here. For help in following Grafana's style recommendations for technical documentation, refer to our [Writer's Toolkit](https://grafana.com/docs/writers-toolkit/).
-
-## Contributing
-Do you want folks to contribute to the plugin or provide feedback through specific means? If so, tell them how!
--->
+### 📐 Tipografía Ultranítida y Diseños Flexibles
+* **Suavizado de Fuente (Font-Smoothing antialiasing):** Aplicado por CSS para garantizar bordes limpios en textos pequeños dentro del SVG.
+* **Peso Semibold (600):** Elimina la difuminación/borrosidad en textos pequeños en negrita.
+* **Alineación Vertical Fija:** La primera línea de texto de las actividades y proyectos se posiciona de forma fija y verticalmente centrada; si el texto es muy largo, las líneas secundarias fluyen hacia abajo y se recortan limpiamente al borde inferior (`overflow: hidden`) sin mover la línea principal.
+* **Tamaños de Letra Configurables:** Ajusta el tamaño de fuente para actividades y proyectos en píxeles de forma independiente.
