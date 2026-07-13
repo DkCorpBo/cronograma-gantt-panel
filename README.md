@@ -76,7 +76,7 @@ Desarrollado y mantenido por **DkCorpBo**.
 Para utilizar el plugin de manera privada o en servidores de producción sin firmar, puedes habilitar el modo de desarrollo en la configuración de Grafana (`grafana.ini`):
 ```ini
 [plugins]
-allow_loading_unsigned_plugins = dkcorpbo-cronograma-gantt-panel
+allow_loading_unsigned_plugins = dkcorpbo-cronograma-panel
 ```
 
 ---
