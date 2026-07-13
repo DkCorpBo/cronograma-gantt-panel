@@ -50,7 +50,7 @@
         }
       ],
       "title": "Panel Title",
-      "type": "cronograma-gantt-panel"
+      "type": "dkcorpbo-cronograma-gantt-panel"
     },
     {
       "datasource": {
@@ -81,7 +81,7 @@
         }
       ],
       "title": "Panel Title",
-      "type": "cronograma-gantt-panel"
+      "type": "dkcorpbo-cronograma-gantt-panel"
     }
   ],
   "refresh": "",
