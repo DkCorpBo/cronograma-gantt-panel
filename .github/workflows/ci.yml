@@ -166,8 +166,8 @@ jobs:
         with:
           url: 'http://localhost:3000/'
           responseCode: 200
-          timeout: 60000
-          interval: 500
+          timeout: 300000
+          interval: 1000
 
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
@@ -179,7 +179,7 @@ jobs:
       - name: Docker logs
         if: ${{ always() && steps.run-tests.outcome == 'failure' }}
         run: |
-          docker logs avicolasofia-cronograma-panel >& grafana-server.log
+          docker logs dkcorpbo-cronograma-panel >& grafana-server.log
 
       - name: Stop grafana docker
         run: docker-compose down
