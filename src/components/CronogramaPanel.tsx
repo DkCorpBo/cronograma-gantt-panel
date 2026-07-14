@@ -275,7 +275,6 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
     idField,
     startTimeField,
     endTimeField,
-    categoryField,
     colorField,
     progressField,
     defaultBarColor,
