@@ -39,7 +39,7 @@ jobs:
           sha1sum dkcorpbo-cronograma-panel.zip | awk '{print $1}' > dkcorpbo-cronograma-panel.zip.sha1
 
       - name: Generate artifact attestation
-        uses: actions/attest@v1
+        uses: actions/attest-build-provenance@v1
         with:
           subject-path: 'dkcorpbo-cronograma-panel.zip'
 
