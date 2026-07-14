@@ -27,6 +27,7 @@ test('should display Gantt structure when data is passed to the panel', async ({
 test('should display legend by default and hide it when option is disabled', async ({
   gotoPanelEditPage,
   readProvisionedDashboard,
+  page,
   selectors,
 }) => {
   const dashboard = await readProvisionedDashboard({ fileName: 'dashboard.json' });
@@ -38,8 +39,10 @@ test('should display legend by default and hide it when option is disabled', asy
 
   // Expande/colapsa la sección de opciones y busca la opción de ocultar leyenda
   await panelEditPage.collapseSection('Leyenda y Estados');
-  const showLegendField = panelEditPage.getByGrafanaSelector(
-    selectors.components.PanelEditor.OptionsPane.fieldLabel('Leyenda y Estados Mostrar Leyenda Superior')
+  
+  // Buscamos el editor del campo con un selector OR flexible para soportar todas las versiones de Grafana
+  const showLegendField = page.locator(
+    '[aria-label="Leyenda y Estados Mostrar Leyenda Superior field property editor"], [aria-label="Mostrar Leyenda Superior field property editor"]'
   );
   const toggle = showLegendField.getByLabel('Toggle switch');
   await toggle.click();
