@@ -1427,7 +1427,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                     e.currentTarget.style.backgroundColor = theme.colors.background.secondary;
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = theme.colors.canvas;
+                    e.currentTarget.style.backgroundColor = theme.colors.background.canvas;
                   }}
                 >
                   🔗 {link.title || (isProj ? 'Editar Proyecto' : 'Editar Actividad')}

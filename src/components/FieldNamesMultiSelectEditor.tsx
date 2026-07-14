@@ -1,6 +1,6 @@
 import React from 'react';
-import { StandardEditorProps } from '@grafana/data';
-import { MultiSelect, SelectableValue } from '@grafana/ui';
+import { StandardEditorProps, SelectableValue } from '@grafana/data';
+import { MultiSelect } from '@grafana/ui';
 
 interface Settings {}
 
