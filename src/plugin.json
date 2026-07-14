@@ -14,7 +14,12 @@
       "large": "img/logo.svg"
     },
     "links": [],
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Vista Previa de Cronograma (Gantt)",
+        "path": "img/preview.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },

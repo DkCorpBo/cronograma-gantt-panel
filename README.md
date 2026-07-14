@@ -4,7 +4,7 @@ Un plugin de panel altamente interactivo, dinámico y estéticamente premium par
 
 Desarrollado y mantenido por **DkCorpBo**.
 
-![Vista Previa del Plugin](src/img/preview.png)
+![Vista Previa del Plugin](https://raw.githubusercontent.com/DkCorpBo/cronograma-gantt-panel/main/src/img/preview.png)
 
 ---
 
