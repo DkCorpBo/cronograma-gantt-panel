@@ -116,10 +116,9 @@ jobs:
       fail-fast: false
       matrix:
         GRAFANA_IMAGE:
-          - name: grafana-enterprise
-            NAME: grafana-enterprise
+          - NAME: grafana-enterprise
             VERSION: 11.2.10
-    name: e2e test ${{ matrix.GRAFANA_IMAGE.name }}@${{ matrix.GRAFANA_IMAGE.VERSION }}
+    name: e2e test ${{ matrix.GRAFANA_IMAGE.NAME }}@${{ matrix.GRAFANA_IMAGE.VERSION }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
