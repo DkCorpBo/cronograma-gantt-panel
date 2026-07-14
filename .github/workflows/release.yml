@@ -1,24 +1,55 @@
-# This GitHub Action automates the process of building Grafana plugins.
-# (For more information, see https://github.com/grafana/plugin-actions/blob/main/build-plugin/README.md)
 name: Release
 
 on:
   push:
     tags:
-      - 'v*' # Run workflow on version tags, e.g. v1.0.0.
+      - 'v*'
 
-permissions: read-all
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
-    permissions:
-      contents: write
-      id-token: write      # Required for provenance attestation OIDC token
-      attestations: write  # Required for creating attestations
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: grafana/plugin-actions/build-plugin@release
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
         with:
-          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
-          attestation: true
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Package plugin
+        run: |
+          mkdir -p temp-gantt/dkcorpbo-cronograma-panel
+          cp -r dist/* temp-gantt/dkcorpbo-cronograma-panel/
+          cd temp-gantt
+          zip -r ../dkcorpbo-cronograma-panel.zip dkcorpbo-cronograma-panel
+          cd ..
+          rm -rf temp-gantt
+          sha1sum dkcorpbo-cronograma-panel.zip | awk '{print $1}' > dkcorpbo-cronograma-panel.zip.sha1
+
+      - name: Generate artifact attestation
+        uses: actions/attest@v1
+        with:
+          subject-path: 'dkcorpbo-cronograma-panel.zip'
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dkcorpbo-cronograma-panel.zip
+            dkcorpbo-cronograma-panel.zip.sha1
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
