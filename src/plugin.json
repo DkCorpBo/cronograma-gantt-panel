@@ -13,7 +13,12 @@
       "small": "img/logo.svg",
       "large": "img/logo.svg"
     },
-    "links": [],
+    "links": [
+      {
+        "name": "sponsor",
+        "url": "https://github.com/sponsors/DkCorpBo"
+      }
+    ],
     "screenshots": [
       {
         "name": "Vista Previa de Cronograma (Gantt)",
