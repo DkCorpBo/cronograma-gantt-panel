@@ -13,27 +13,27 @@ test('should display empty message in case panel data is empty', async ({
 
 // Prueba 2: Verificar que se dibuje la estructura jerárquica cuando hay datos
 test('should display Gantt structure when data is passed to the panel', async ({
-  panelEditPage,
-  readProvisionedDataSource,
+  gotoPanelEditPage,
+  readProvisionedDashboard,
   page,
 }) => {
-  const ds = await readProvisionedDataSource({ fileName: 'datasources.yml' });
-  await panelEditPage.datasource.set(ds.name);
-  await panelEditPage.setVisualization('Cronograma (Gantt)');
+  const dashboard = await readProvisionedDashboard({ fileName: 'dashboard.json' });
+  // Navega directamente al panel de edición del panel 1 que ya tiene datos provisionados
+  const panelEditPage = await gotoPanelEditPage({ dashboard, id: '1' });
   // Verifica que se muestre el texto de cabecera de la columna izquierda
   await expect(page.getByText('Estructura Jerárquica')).toBeVisible();
 });
 
 // Prueba 3: Verificar que se oculte la leyenda al desactivar la opción
 test('should display legend by default and hide it when option is disabled', async ({
-  panelEditPage,
-  readProvisionedDataSource,
+  gotoPanelEditPage,
+  readProvisionedDashboard,
   page,
   selectors,
 }) => {
-  const ds = await readProvisionedDataSource({ fileName: 'datasources.yml' });
-  await panelEditPage.datasource.set(ds.name);
-  await panelEditPage.setVisualization('Cronograma (Gantt)');
+  const dashboard = await readProvisionedDashboard({ fileName: 'dashboard.json' });
+  // Navega directamente al panel de edición del panel 1 que ya tiene datos provisionados
+  const panelEditPage = await gotoPanelEditPage({ dashboard, id: '1' });
 
   // Por defecto, showLegend es true y la leyenda "Actividad Iniciada" debe ser visible
   await expect(page.getByText('Actividad Iniciada')).toBeVisible();
@@ -49,4 +49,5 @@ test('should display legend by default and hide it when option is disabled', asy
   // Después de hacer clic en el switch, la leyenda "Actividad Iniciada" debe desaparecer
   await expect(page.getByText('Actividad Iniciada')).not.toBeVisible();
 });
+
 
