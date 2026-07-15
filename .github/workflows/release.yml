@@ -14,10 +14,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.2.0
         with:
           node-version: '20'
           cache: 'npm'
@@ -45,7 +45,7 @@ jobs:
           sha1sum dkcorpbo-cronograma-panel.zip | awk '{print $1}' > dkcorpbo-cronograma-panel.zip.sha1
 
       - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2.2.0
         with:
           subject-path: 'dkcorpbo-cronograma-panel.zip'
 
