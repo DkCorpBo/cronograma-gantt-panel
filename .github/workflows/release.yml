@@ -16,19 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
 
-      - name: Build and Sign Plugin with Grafana Action
+      - name: Build, Sign and Release Plugin with Grafana Action
         uses: grafana/plugin-actions/build-plugin@main
         with:
           policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
           attestation: true
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            *.zip
-            *.zip.sha1
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
