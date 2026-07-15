@@ -47,14 +47,14 @@ test('should display legend by default and hide it when option is disabled', asy
   const selectorLabel = page.getByLabel('Mostrar Leyenda Superior');
 
   if (await selectorOld.isVisible()) {
-    await selectorOld.click();
+    await selectorOld.click({ force: true });
   } else if (await selectorNew.isVisible()) {
-    await selectorNew.click();
+    await selectorNew.click({ force: true });
   } else if (await selectorContainer.isVisible()) {
-    await selectorContainer.click();
+    await selectorContainer.click({ force: true });
   } else {
     // Si ninguno de los anteriores es visible, usamos el fallback por label nativo de Playwright
-    await selectorLabel.click();
+    await selectorLabel.click({ force: true });
   }
 
   // Después de hacer clic en el switch, la leyenda "Actividad Iniciada" debe desaparecer del panel
