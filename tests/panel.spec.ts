@@ -40,12 +40,22 @@ test('should display legend by default and hide it when option is disabled', asy
   // Expande/colapsa la sección de opciones y busca la opción de ocultar leyenda
   await panelEditPage.collapseSection('Leyenda y Estados');
   
-  // Buscamos el editor del campo con un selector OR flexible para soportar todas las versiones de Grafana
-  const showLegendField = page.locator(
-    '[aria-label="Leyenda y Estados Mostrar Leyenda Superior field property editor"], [aria-label="Mostrar Leyenda Superior field property editor"]'
-  );
-  const toggle = showLegendField.getByLabel('Toggle switch');
-  await toggle.click();
+  // Localizadores alternativos para soportar diferencias estructurales entre todas las versiones de Grafana
+  const selectorOld = page.locator('[aria-label="Leyenda y Estados Mostrar Leyenda Superior field property editor"]').getByLabel('Toggle switch');
+  const selectorNew = page.locator('[aria-label="Mostrar Leyenda Superior field property editor"]').getByLabel('Toggle switch');
+  const selectorContainer = page.locator('div').filter({ has: page.locator('label', { hasText: 'Mostrar Leyenda Superior' }) }).getByLabel('Toggle switch');
+  const selectorLabel = page.getByLabel('Mostrar Leyenda Superior');
+
+  if (await selectorOld.isVisible()) {
+    await selectorOld.click();
+  } else if (await selectorNew.isVisible()) {
+    await selectorNew.click();
+  } else if (await selectorContainer.isVisible()) {
+    await selectorContainer.click();
+  } else {
+    // Si ninguno de los anteriores es visible, usamos el fallback por label nativo de Playwright
+    await selectorLabel.click();
+  }
 
   // Después de hacer clic en el switch, la leyenda "Actividad Iniciada" debe desaparecer del panel
   await expect(panelEditPage.panel.locator.getByText('Actividad Iniciada', { exact: true })).not.toBeVisible();
