@@ -8,54 +8,9 @@ on:
 permissions:
   contents: write
   id-token: write
-  attestations: write
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4.2.0
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build plugin
-        run: npm run build
-
-      - name: Sign plugin
-        run: npm run sign
-        env:
-          GRAFANA_ACCESS_POLICY_TOKEN: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
-        if: ${{ env.GRAFANA_ACCESS_POLICY_TOKEN != '' }}
-
-      - name: Package plugin
-        run: |
-          mkdir -p temp-gantt/dkcorpbo-cronograma-panel
-          cp -r dist/* temp-gantt/dkcorpbo-cronograma-panel/
-          cd temp-gantt
-          zip -r ../dkcorpbo-cronograma-panel.zip dkcorpbo-cronograma-panel
-          cd ..
-          rm -rf temp-gantt
-          sha1sum dkcorpbo-cronograma-panel.zip | awk '{print $1}' > dkcorpbo-cronograma-panel.zip.sha1
-
-      - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v2.2.0
-        with:
-          subject-path: 'dkcorpbo-cronograma-panel.zip'
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dkcorpbo-cronograma-panel.zip
-            dkcorpbo-cronograma-panel.zip.sha1
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: grafana/plugin-actions/.github/workflows/release.yml@main
+    secrets:
+      GRAFANA_ACCESS_POLICY_TOKEN: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
