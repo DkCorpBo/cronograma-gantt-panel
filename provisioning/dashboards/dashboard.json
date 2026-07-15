@@ -79,6 +79,35 @@
       ],
       "title": "Panel Title",
       "type": "dkcorpbo-cronograma-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "trlxrdZVk"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "showLegend": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "trlxrdZVk"
+          },
+          "refId": "A",
+          "scenarioId": "csv_content",
+          "csvContent": "name,start_time,end_time,category,progress,color,estado\nTarea 1,2026-07-14T09:00:00Z,2026-07-14T17:00:00Z,Proyecto Alfa,0.5,#2E7D32,Iniciada\nTarea 2,2026-07-14T09:00:00Z,2026-07-14T17:00:00Z,Proyecto Alfa,1.0,#1565C0,Finalizada"
+        }
+      ],
+      "title": "Panel with Disabled Legend",
+      "type": "dkcorpbo-cronograma-panel"
     }
   ],
   "refresh": "",
