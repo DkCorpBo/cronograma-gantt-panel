@@ -1,15 +1,15 @@
-# Guía de Pruebas - Plugin Cronograma (Gantt)
+# Testing Guide - Hierarchical Gantt Schedule Plugin
 
-Esta guía detalla los pasos para poblar los datos de prueba y validar el funcionamiento del panel **Cronograma (Gantt)** de Grafana.
+This guide details the steps to populate test data and validate the functionality of the **Hierarchical Gantt Schedule** panel in Grafana.
 
 ---
 
-## 1. Estructura de la Base de Datos de Prueba
+## 1. Database Schema Setup
 
-Para probar todas las características del panel (jerarquías multinivel, barra de progreso, colores de estado y leyenda), se recomienda crear una tabla de tareas con la siguiente estructura (ejemplo en SQL Server / Transact-SQL):
+To test all panel features (multi-level hierarchies, progress tracking, status colors, and legend rendering), we recommend creating a tasks table with the following structure (Transact-SQL / SQL Server example):
 
 ```sql
--- Crear tabla de ejemplo para tareas
+-- Create sample table for tasks
 CREATE TABLE TareasCronograma (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Actividad VARCHAR(100) NOT NULL,
@@ -17,30 +17,30 @@ CREATE TABLE TareasCronograma (
     FechaFin DATETIME NOT NULL,
     Proyecto VARCHAR(100) NOT NULL,
     Gerencia VARCHAR(100) NOT NULL,
-    Progreso DECIMAL(5,2) NULL, -- Valores de 0 a 100 o decimal de 0.0 a 1.0
-    ColorHex VARCHAR(7) NULL,    -- Ej: '#2E7D32'
+    Progreso DECIMAL(5,2) NULL, -- Values from 0 to 100 or decimal from 0.0 to 1.0
+    ColorHex VARCHAR(7) NULL,    -- E.g., '#2E7D32'
     Estado VARCHAR(50) NULL      -- 'Iniciada', 'Finalizada', 'Creada'
 );
 ```
 
 ---
 
-## 2. Inserción de Datos de Prueba
+## 2. Populating Test Data
 
-Ejecute el siguiente script SQL para insertar un conjunto de datos jerárquico realista (dos proyectos bajo diferentes gerencias con varias actividades):
+Execute the following SQL script to insert a realistic hierarchical dataset (two projects under different management departments with several activities):
 
 ```sql
--- Limpiar tabla e insertar datos de prueba
+-- Clear table and insert test data
 TRUNCATE TABLE TareasCronograma;
 
 INSERT INTO TareasCronograma (Actividad, FechaInicio, FechaFin, Proyecto, Gerencia, Progreso, ColorHex, Estado)
 VALUES
--- Proyecto Alfa (Gerencia de Operaciones)
+-- Project Alfa (Operations Management)
 ('Diseño de Planos', DATEADD(day, -5, GETDATE()), DATEADD(day, -2, GETDATE()), 'Proyecto Alfa', 'Operaciones', 100, '#1565C0', 'Finalizada'),
 ('Cimentación', DATEADD(day, -2, GETDATE()), DATEADD(day, 2, GETDATE()), 'Proyecto Alfa', 'Operaciones', 45, '#2E7D32', 'Iniciada'),
 ('Estructura Principal', DATEADD(day, 2, GETDATE()), DATEADD(day, 7, GETDATE()), 'Proyecto Alfa', 'Operaciones', 0, '#D4AF37', 'Creada'),
 
--- Proyecto Beta (Gerencia de TI)
+-- Project Beta (IT Management)
 ('Requerimientos', DATEADD(day, -10, GETDATE()), DATEADD(day, -6, GETDATE()), 'Proyecto Beta', 'Tecnología', 100, '#1565C0', 'Finalizada'),
 ('Desarrollo Backend', DATEADD(day, -5, GETDATE()), DATEADD(day, 5, GETDATE()), 'Proyecto Beta', 'Tecnología', 75, '#2E7D32', 'Iniciada'),
 ('Desarrollo Frontend', DATEADD(day, -1, GETDATE()), DATEADD(day, 6, GETDATE()), 'Proyecto Beta', 'Tecnología', 20, '#2E7D32', 'Iniciada'),
@@ -49,10 +49,10 @@ VALUES
 
 ---
 
-## 3. Configuración del Panel en Grafana
+## 3. Panel Configuration in Grafana
 
-1. Agregue un nuevo panel de tipo **Cronograma (Gantt)** en su dashboard de Grafana.
-2. Configure la consulta SQL para leer de la tabla de prueba:
+1. Add a new panel of type **Hierarchical Gantt Schedule** to your Grafana dashboard.
+2. Configure the SQL query to read from the test table:
    ```sql
    SELECT 
        Actividad AS name,
@@ -65,11 +65,11 @@ VALUES
        Estado AS estado
    FROM TareasCronograma;
    ```
-3. En el panel de opciones de la derecha, configure los mapeos en la sección **Mapeo de Datos**:
-   * **Columna de Nombre:** `name`
-   * **Columna de Fecha de Inicio:** `start_time`
-   * **Columna de Fecha de Fin:** `end_time`
-   * **Columna de Proyecto:** `category`
-   * **Columna de Progreso:** `progress`
-   * **Columna de Color:** `color`
-4. En **Agrupación Jerárquica**, seleccione la columna `Gerencia`. El panel agrupará jerárquicamente en cascada: `Gerencia -> Proyecto (Resumen) -> Actividades`.
+3. In the options panel on the right, map the columns in the **Data Mapping** section:
+   * **Name Column:** `name`
+   * **Start Time Column:** `start_time`
+   * **End Time Column:** `end_time`
+   * **Project/Category Column:** `category`
+   * **Progress Column:** `progress`
+   * **Color Column:** `color`
+4. Under **Hierarchical Grouping**, select the `Gerencia` column. The panel will automatically group in a cascading hierarchy: `Gerencia -> Project (Summary) -> Activities`.

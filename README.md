@@ -1,79 +1,79 @@
-# Cronograma (Gantt) - Panel Plugin de Grafana
+# Hierarchical Gantt Schedule - Grafana Panel Plugin
 
-Un plugin de panel altamente interactivo, dinámico y estéticamente premium para Grafana que permite visualizar cronogramas y líneas de tiempo tipo **Gantt**.
+An interactive, dynamic, and premium Gantt timeline schedule panel plugin for Grafana.
 
-Desarrollado y mantenido por **DkCorpBo**.
+Developed and maintained by **DkCorpBo**.
 
-![Vista Previa del Plugin](https://raw.githubusercontent.com/DkCorpBo/cronograma-gantt-panel/main/src/img/preview.png)
-
----
-
-## ✨ Características Principales
-
-### 📁 Estructura Jerárquica e Hilos de Agrupación Ilimitados
-* **Agrupación en cascada dinámica:** Permite seleccionar múltiples columnas de la consulta de base de datos a través de una barra de etiquetas interactiva (ej: `Gerencia > Equipo > Proyecto`).
-* **Niveles ilimitados:** Sin límites artificiales de profundidad. Puedes agrupar tus actividades por tantos niveles jerárquicos como necesites.
-* **Colapso/Expansión:** Carpetas y proyectos con controles `▶` y `▼` para optimizar el espacio en dashboards complejos.
-
-### 🟠 Barras de Resumen de Proyectos
-* Las agrupaciones de nivel inferior (proyectos) se pintan de forma predeterminada en color **Naranja Premium** (`#E65100`).
-* Muestran el nombre del proyecto centrado directamente en su barra.
-* Calculan de forma automática la barra de progreso promedio y el rango temporal (fecha mínima y máxima) en base al estado de sus actividades hijas.
-
-### 🎨 Leyenda y Coloreo Automático por Estado (SQL)
-* **Colores por Estado Automatizados:** Si no se define un color en la consulta SQL, el plugin lee la columna `Estado` (o `status`) y asigna colores automáticamente:
-  * 🟢 **Actividad Iniciada** (`Iniciada`, `Iniciado`, `En Progreso`) -> Verde.
-  * 🔵 **Actividad Finalizada** (`Finalizada`, `Finalizado`, `Completado`, `Completada`) -> Azul.
-  * 🟡 **Actividad Creada** (`Creada`, `Creado`, `Pendiente`, `Nueva`, `Nuevo`) -> Amarillo/Dorado.
-* **100% Configurable:** Puedes activar/desactivar la barra de leyenda superior y personalizar cada uno de estos colores desde la barra lateral derecha del editor.
-
-### 🔍 Controles Temporales Interactivos y Zoom
-* **Navegación Intuitiva:** Botones integrados de `Acercar` (Zoom In), `Alejar` (Zoom Out), `Izquierda` (Pan Left), `Derecha` (Pan Right) y `Restablecer Rango` al período temporal de la consulta global de Grafana.
-* **Zoom con Rueda:** Haz zoom continuo girando la rueda del ratón (Mouse Wheel Zoom) centrado en la posición de tu cursor.
-* **Desplazamiento con Arrastre:** Mantén presionado el clic y arrastra lateralmente para desplazarte (pan/drag) a lo largo del tiempo.
-* **Indicador Temporal "Ahora":** Una línea roja vertical discontinua con la etiqueta "Ahora" que se actualiza en tiempo real en base a la hora de tu servidor/máquina local.
-
-### 💬 Sistema de Doble Tooltip (Hover y Clic Fijo)
-* **Hover Ligero:** Al pasar el cursor por encima de una barra, aparece de forma instantánea una burbuja oscura que muestra el nombre de la tarea sin bloquear la vista ni clics.
-* **Clic Fijo con Detalles:** Al hacer clic izquierdo en una barra de actividad o proyecto, se abre un tooltip interactivo fijo en el punto de clic con:
-  * Nombre de la tarea, fechas exactas de inicio y fin, duración y progreso.
-  * **Campos Extra Dinámicos:** Puedes definir en una caja de texto qué columnas adicionales de tu consulta (ej: `estado, responsable, prioridad`) quieres mostrar en esta ficha de detalles.
-  * **Data Links Integrados:** Un botón con enlace directo (`href` y `target`) para navegar a otras pantallas de detalles nativos de Grafana.
-
-### 📐 Tipografía Ultranítida y Diseños Flexibles
-* **Suavizado de Fuente (Font-Smoothing antialiasing):** Aplicado por CSS para garantizar bordes limpios en textos pequeños dentro del SVG.
-* **Peso Semibold (600):** Elimina la difuminación/borrosidad en textos pequeños en negrita.
-* **Alineación Vertical Fija:** La primera línea de texto de las actividades y proyectos se posiciona de forma fija y verticalmente centrada; si el texto es muy largo, las líneas secundarias fluyen hacia abajo y se recortan limpiamente al borde inferior (`overflow: hidden`) sin mover la línea principal.
-* **Tamaños de Letra Configurables:** Ajusta el tamaño de fuente para actividades y proyectos en píxeles de forma independiente.
+![Plugin Preview](https://raw.githubusercontent.com/DkCorpBo/cronograma-gantt-panel/main/src/img/preview.png)
 
 ---
 
-## 🛠️ Requisitos de Desarrollo e Instalación
+## ✨ Key Features
 
-### Dependencias de Desarrollo
-1. Instalar dependencias del proyecto:
+### 📁 Unlimited Hierarchical Grouping Levels
+* **Dynamic Cascading Grouping:** Select multiple columns from your database query using an interactive tag-based selector (e.g., `Department > Team > Project`).
+* **Infinite Depth:** No artificial depth limits. Group activities by as many hierarchical levels as your data requires.
+* **Expand/Collapse Controls:** Folders and projects feature `▶` and `▼` toggle buttons to optimize space on busy dashboards.
+
+### 🟠 Project Summary Bars
+* Sub-groups (projects) are automatically colored in a premium **Orange** theme (`#E65100`).
+* Project names are displayed centered directly inside their corresponding bars.
+* Automatically calculates parent timelines (minimum start date and maximum end date) and average progress based on the state of child activities.
+
+### 🎨 Automatic Status Coloring & Dynamic Legend (SQL)
+* **Automatic Status Colors:** If no color column is specified in the SQL query, the plugin parses the `status` (or `estado`) column and assigns colors automatically:
+  * 🟢 **Active/In Progress** (`Iniciada`, `Iniciado`, `En Progreso`, `In Progress`) -> Green.
+  * 🔵 **Completed** (`Finalizada`, `Finalizado`, `Completado`, `Completada`, `Completed`) -> Blue.
+  * 🟡 **Created/Pending** (`Creada`, `Creado`, `Pendiente`, `Nueva`, `Nuevo`, `Pending`, `Created`) -> Yellow/Gold.
+* **100% Configurable:** Enable or disable the top legend bar and customize specific colors for each status from the right-hand panel editor options.
+
+### 🔍 Interactive Time Controls & Zoom
+* **Intuitive Panning and Zooming:** Built-in buttons for `Zoom In`, `Zoom Out`, `Pan Left`, `Pan Right`, and `Reset Range` to match the global Grafana time picker.
+* **Mouse Wheel Zoom:** Smooth wheel zoom centered on your mouse cursor position.
+* **Drag-to-Pan:** Click and drag horizontally to move along the timeline.
+* **Real-time "Now" Line:** A dotted vertical red line labeled "Now" that updates dynamically based on the local system time.
+
+### 💬 Dual Tooltip System (Hover & Click-to-Lock)
+* **Lightweight Hover Tooltip:** Hovering over any task bar displays a dark bubble with the task name without blocking clicks or selections.
+* **Sticky Click Tooltip:** Clicking on any activity or project bar locks a detailed tooltip showing:
+  * Task name, exact start and end dates, duration, and progress.
+  * **Dynamic Extra Fields:** Add any extra database columns (e.g., `status, assignee, priority`) in the options box to display them inside this details card.
+  * **Integrated Data Links:** Native Grafana data links are supported, enabling redirection with `href` and `target`.
+
+### 📐 High-Definition Rendering & Clean Typography
+* **Antialiased SVG Text:** Custom CSS font-smoothing prevents blurring on small texts.
+* **Semibold Font Weight (600):** Maintains legibility in tight Gantt rows.
+* **Vertical Centering:** Text labels are vertically centered; long descriptions flow downwards and clip cleanly (`overflow: hidden`) without displacing the main timeline structure.
+* **Custom Text Sizes:** Independently adjust the font sizes for activities and projects in pixels.
+
+---
+
+## 🛠️ Development & Installation
+
+### Development Setup
+1. Install project dependencies:
    ```bash
    yarn install
-   # o bien:
+   # or:
    npm install
    ```
 
-2. Compilar el plugin en modo desarrollo y habilitar el hot-reload en tiempo real:
+2. Run the plugin in development mode with live hot-reloading:
    ```bash
    yarn run dev
-   # o bien:
+   # or:
    npm run dev
    ```
 
-3. Compilar el plugin para producción:
+3. Build the plugin for production:
    ```bash
    yarn run build
-   # o bien:
+   # or:
    npm run build
    ```
 
-### Distribución y Firma del Plugin
-Para utilizar el plugin de manera privada o en servidores de producción sin firmar, puedes habilitar el modo de desarrollo en la configuración de Grafana (`grafana.ini`):
+### Plugin Distribution & Signing
+To run this plugin in a local development environment or privately without cryptographic signing, add the following to your Grafana configuration file (`grafana.ini`):
 ```ini
 [plugins]
 allow_loading_unsigned_plugins = dkcorpbo-cronograma-panel
@@ -81,6 +81,6 @@ allow_loading_unsigned_plugins = dkcorpbo-cronograma-panel
 
 ---
 
-## 📜 Licencia
+## 📜 License
 
-Licencia Apache-2.0. Consulta el archivo `LICENSE` para más detalles.
+Licensed under the Apache-2.0 License. See the `LICENSE` file for details.

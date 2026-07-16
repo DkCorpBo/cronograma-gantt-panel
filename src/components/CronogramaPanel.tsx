@@ -237,11 +237,35 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
         // Si sigue sin color, aplicamos lógica de color automático en base al campo "Estado"
         if (!color && estado) {
           const estLower = estado.toLowerCase();
-          if (estLower.includes('iniciada') || estLower.includes('progreso') || estLower.includes('iniciado')) {
+          if (
+            estLower.includes('iniciada') ||
+            estLower.includes('progreso') ||
+            estLower.includes('iniciado') ||
+            estLower.includes('in progress') ||
+            estLower.includes('started') ||
+            estLower.includes('active')
+          ) {
             color = resolvedActIniciadaColor;
-          } else if (estLower.includes('finalizada') || estLower.includes('completado') || estLower.includes('completada') || estLower.includes('finalizado')) {
+          } else if (
+            estLower.includes('finalizada') ||
+            estLower.includes('completado') ||
+            estLower.includes('completada') ||
+            estLower.includes('finalizado') ||
+            estLower.includes('completed') ||
+            estLower.includes('done') ||
+            estLower.includes('finished')
+          ) {
             color = resolvedActFinalizadaColor;
-          } else if (estLower.includes('creada') || estLower.includes('pendiente') || estLower.includes('creado') || estLower.includes('nueva') || estLower.includes('nuevo')) {
+          } else if (
+            estLower.includes('creada') ||
+            estLower.includes('pendiente') ||
+            estLower.includes('creado') ||
+            estLower.includes('nueva') ||
+            estLower.includes('nuevo') ||
+            estLower.includes('created') ||
+            estLower.includes('pending') ||
+            estLower.includes('new')
+          ) {
             color = resolvedActCreadaColor;
           }
         }
@@ -693,25 +717,25 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
           boxSizing: 'border-box',
         }}
       >
-        <button onClick={() => handleZoomBtn(0.8)} style={buttonStyle(theme)} title="Acercar Rango Temporal">
-          {isCompact ? '➕' : '➕ Acercar'}
+        <button onClick={() => handleZoomBtn(0.8)} style={buttonStyle(theme)} title="Zoom In">
+          {isCompact ? '➕' : '➕ Zoom In'}
         </button>
-        <button onClick={() => handleZoomBtn(1.2)} style={buttonStyle(theme)} title="Alejar Rango Temporal">
-          {isCompact ? '➖' : '➖ Alejar'}
+        <button onClick={() => handleZoomBtn(1.2)} style={buttonStyle(theme)} title="Zoom Out">
+          {isCompact ? '➖' : '➖ Zoom Out'}
         </button>
-        <button onClick={() => handlePanBtn(-1)} style={buttonStyle(theme)} title="Desplazar a la Izquierda">
-          {isCompact ? '⬅️' : '⬅️ Izquierda'}
+        <button onClick={() => handlePanBtn(-1)} style={buttonStyle(theme)} title="Pan Left">
+          {isCompact ? '⬅️' : '⬅️ Pan Left'}
         </button>
-        <button onClick={() => handlePanBtn(1)} style={buttonStyle(theme)} title="Desplazar a la Derecha">
-          {isCompact ? '➡️' : '➡️ Derecha'}
+        <button onClick={() => handlePanBtn(1)} style={buttonStyle(theme)} title="Pan Right">
+          {isCompact ? '➡️' : '➡️ Pan Right'}
         </button>
         {width >= 800 && (
           <div style={{ fontSize: '11px', color: theme.colors.text.secondary, marginLeft: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            💡 <em>Tip: Clic en barras abre detalles. Arrastra para mover el tiempo, y haz zoom con la rueda.</em>
+            💡 <em>Tip: Click bars for details. Drag to pan the timeline, scroll to zoom.</em>
           </div>
         )}
-        <button onClick={handleReset} style={{ ...buttonStyle(theme), marginLeft: 'auto' }} title="Restablecer rango temporal inicial">
-          {isCompact ? '🔄' : '🔄 Restablecer Rango'}
+        <button onClick={handleReset} style={{ ...buttonStyle(theme), marginLeft: 'auto' }} title="Reset Time Range">
+          {isCompact ? '🔄' : '🔄 Reset Range'}
         </button>
       </div>
 
@@ -732,19 +756,19 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedProjectColor }} />
-            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Proyecto</span>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Project</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActIniciadaColor }} />
-            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Actividad Iniciada</span>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity In Progress</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActFinalizadaColor }} />
-            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Actividad Finalizada</span>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity Completed</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActCreadaColor }} />
-            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Actividad Creada</span>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity Created</span>
           </div>
         </div>
       )}
@@ -772,7 +796,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             boxSizing: 'border-box',
           }}
         >
-          Estructura Jerárquica
+          Hierarchical Structure
         </div>
         <div style={{ position: 'relative', flex: 1, height: '100%' }}>
           {timeTicks.map((tick, idx) => {
@@ -808,7 +832,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
       {/* 4. Área Principal (Alineación vertical perfecta mediante altura explícita de filas en ambas columnas) */}
       {tasks.length === 0 ? (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: theme.colors.text.disabled, fontSize: '14px' }}>
-          No hay datos disponibles para mostrar.
+          No data available to display.
         </div>
       ) : (
         <div
@@ -1236,7 +1260,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                     fontWeight="bold"
                     style={{ pointerEvents: 'none' }}
                   >
-                    Ahora
+                    Now
                   </text>
                 </g>
               )}
@@ -1312,7 +1336,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
               padding: '2px',
               outline: 'none',
             }}
-            title="Cerrar detalles"
+            title="Close details"
           >
             ✖
           </button>
@@ -1324,11 +1348,11 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
           {pinnedTask.id.startsWith('g:') || pinnedTask.id.startsWith('p:') ? (
             <>
               <div style={{ marginBottom: '4px' }}>
-                <span style={{ color: theme.colors.text.secondary }}>Tipo:</span>{' '}
-                <strong style={{ color: theme.colors.text.primary }}>Resumen Acumulado</strong>
+                <span style={{ color: theme.colors.text.secondary }}>Type:</span>{' '}
+                <strong style={{ color: theme.colors.text.primary }}>Rollup Summary</strong>
               </div>
               <div style={{ marginBottom: '4px' }}>
-                <span style={{ color: theme.colors.text.secondary }}>Proyecto:</span>{' '}
+                <span style={{ color: theme.colors.text.secondary }}>Project:</span>{' '}
                 <strong style={{ color: theme.colors.text.primary }}>{pinnedTask.category}</strong>
               </div>
             </>
@@ -1337,7 +1361,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
               {hierarchyFields.map((fName, idx) => {
                 const val = pinnedTask.groupByValues[idx];
                 const isLast = idx === hierarchyFields.length - 1;
-                const label = isLast ? 'Proyecto' : `Nivel ${idx + 1} (${fName})`;
+                const label = isLast ? 'Project' : `Level ${idx + 1} (${fName})`;
                 return (
                   <div key={idx} style={{ marginBottom: '4px' }}>
                     <span style={{ color: theme.colors.text.secondary }}>{label}:</span>{' '}
@@ -1349,19 +1373,19 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
           )}
           
           <div style={{ marginBottom: '4px' }}>
-            <span style={{ color: theme.colors.text.secondary }}>Inicio:</span>{' '}
+            <span style={{ color: theme.colors.text.secondary }}>Start:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{dateTimeFormat(pinnedTask.startTime, { format: 'YYYY-MM-DD HH:mm:ss' })}</strong>
           </div>
           <div style={{ marginBottom: '4px' }}>
-            <span style={{ color: theme.colors.text.secondary }}>Fin:</span>{' '}
+            <span style={{ color: theme.colors.text.secondary }}>End:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{dateTimeFormat(pinnedTask.endTime, { format: 'YYYY-MM-DD HH:mm:ss' })}</strong>
           </div>
           <div style={{ marginBottom: '4px' }}>
-            <span style={{ color: theme.colors.text.secondary }}>Duración:</span>{' '}
+            <span style={{ color: theme.colors.text.secondary }}>Duration:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{formatDuration(pinnedTask.endTime - pinnedTask.startTime)}</strong>
           </div>
           <div style={{ marginBottom: '6px' }}>
-            <span style={{ color: theme.colors.text.secondary }}>Progreso:</span>{' '}
+            <span style={{ color: theme.colors.text.secondary }}>Progress:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{Math.round(pinnedTask.progress * 100)}%</strong>
           </div>
 
@@ -1429,7 +1453,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                     e.currentTarget.style.backgroundColor = theme.colors.background.canvas;
                   }}
                 >
-                  🔗 {link.title || (isProj ? 'Editar Proyecto' : 'Editar Actividad')}
+                  🔗 {link.title || (isProj ? 'Edit Project' : 'Edit Activity')}
                 </a>
               );
             }

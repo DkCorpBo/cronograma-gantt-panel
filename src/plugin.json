@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "Cronograma (Gantt)",
+  "name": "Hierarchical Gantt Schedule",
   "id": "dkcorpbo-cronograma-panel",
   "info": {
-    "keywords": ["panel", "gantt", "cronograma", "timeline"],
-    "description": "Cronograma (Gantt) altamente personalizable y jerárquico con múltiples niveles de agrupación, leyendas de estado y controles interactivos.",
+    "keywords": ["panel", "gantt", "timeline", "schedule", "hierarchical"],
+    "description": "Highly customizable and hierarchical Gantt timeline schedule panel with multiple grouping levels, dynamic status legends, and interactive progress controls.",
     "author": {
       "name": "DkCorpBo"
     },
@@ -21,7 +21,7 @@
     ],
     "screenshots": [
       {
-        "name": "Vista Previa de Cronograma (Gantt)",
+        "name": "Hierarchical Gantt Schedule Preview",
         "path": "img/preview.png"
       }
     ],

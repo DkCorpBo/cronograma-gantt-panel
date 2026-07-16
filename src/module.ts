@@ -3,153 +3,153 @@ import { CronogramaOptions } from './types';
 import { CronogramaPanel } from './components/CronogramaPanel';
 import { FieldNamesMultiSelectEditor } from './components/FieldNamesMultiSelectEditor';
 
-// Registro oficial del plugin de panel en Grafana
+// Official registration of the panel plugin in Grafana
 export const plugin = new PanelPlugin<CronogramaOptions>(CronogramaPanel)
   .useFieldConfig()
   .setPanelOptions((builder) => {
     return builder
-      // --- Grupo 1: Mapeo de Datos (Columnas SQL) ---
+      // --- Group 1: Data Mapping (SQL Columns) ---
       .addFieldNamePicker({
         path: 'idField',
-        name: 'Columna de Nombre (Actividad)',
-        description: 'Columna que contiene el nombre de la actividad o tarea individual.',
+        name: 'Name Column (Activity)',
+        description: 'Column containing the name of the individual activity or task.',
         defaultValue: 'name',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
       .addFieldNamePicker({
         path: 'startTimeField',
-        name: 'Columna de Fecha de Inicio',
-        description: 'Columna con la fecha y hora de inicio de las tareas.',
+        name: 'Start Time Column',
+        description: 'Column containing the start date and time of the tasks.',
         defaultValue: 'start_time',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
       .addFieldNamePicker({
         path: 'endTimeField',
-        name: 'Columna de Fecha de Fin',
-        description: 'Columna con la fecha y hora de fin de las tareas.',
+        name: 'End Time Column',
+        description: 'Column containing the end date and time of the tasks.',
         defaultValue: 'end_time',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
       .addFieldNamePicker({
         path: 'categoryField',
-        name: 'Columna de Proyecto',
-        description: 'Columna que define el proyecto (agrupación final que contiene las actividades).',
+        name: 'Project Column',
+        description: 'Column defining the project (final grouping level containing activities).',
         defaultValue: 'category',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
       .addFieldNamePicker({
         path: 'progressField',
-        name: 'Columna de Progreso (Opcional)',
-        description: 'Columna de avance. Admite valores decimales (0 a 1) o porcentajes (0 a 100).',
+        name: 'Progress Column (Optional)',
+        description: 'Progress column. Accepts decimals (0 to 1) or percentages (0 to 100).',
         defaultValue: 'progress',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
       .addFieldNamePicker({
         path: 'colorField',
-        name: 'Columna de Color (Opcional)',
-        description: 'Columna que contiene el color de cada barra en formato hexadecimal o CSS.',
+        name: 'Color Column (Optional)',
+        description: 'Column containing the custom bar color in HEX or CSS format.',
         defaultValue: 'color',
-        category: ['Mapeo de Datos'],
+        category: ['Data Mapping'],
       })
 
-      // --- Grupo 2: Agrupación Jerárquica Multivel ---
+      // --- Group 2: Hierarchical Grouping ---
       .addCustomEditor({
         id: 'groupByFields',
         path: 'groupByFields',
-        name: 'Agrupar por (Columnas en Cascada)',
-        description: 'Selecciona las columnas por las cuales agrupar. El orden de selección define los niveles jerárquicos (ej: Gerencia, Equipo).',
+        name: 'Group By (Cascading Columns)',
+        description: 'Select the columns to group by. The selection order defines the hierarchical levels (e.g., Management, Team).',
         editor: FieldNamesMultiSelectEditor,
         defaultValue: [],
-        category: ['Agrupación Jerárquica'],
+        category: ['Hierarchical Grouping'],
       })
 
-      // --- Grupo 3: Personalización del Tooltip ---
+      // --- Group 3: Tooltip Customization ---
       .addTextInput({
         path: 'tooltipFields',
-        name: 'Campos Extra en Tooltip (separados por coma)',
-        description: 'Nombres de columnas adicionales de la consulta SQL a visualizar en el tooltip detallado (ej: estado, CodEquipo, Gerencia_Area).',
+        name: 'Extra Fields in Tooltip (comma-separated)',
+        description: 'Names of extra columns from your SQL query to display inside the details tooltip (e.g., status, assignee, priority).',
         defaultValue: 'estado',
-        category: ['Configuración de Tooltip'],
+        category: ['Tooltip Configuration'],
       })
 
-      // --- Grupo 4: Leyenda y Colores por Estado ---
+      // --- Group 4: Legend and Status Colors ---
       .addBooleanSwitch({
         path: 'showLegend',
-        name: 'Mostrar Leyenda Superior',
-        description: 'Habilita o deshabilita la barra de la leyenda en la parte superior del panel.',
+        name: 'Show Top Legend',
+        description: 'Enable or disable the status legend bar at the top of the panel.',
         defaultValue: true,
-        category: ['Leyenda y Estados'],
+        category: ['Legend and Statuses'],
       })
       .addColorPicker({
         path: 'projectColor',
-        name: 'Color de Proyectos (Resumen)',
-        description: 'Color asignado a las barras de resumen de los proyectos (ej: Naranja).',
+        name: 'Projects Color (Summary)',
+        description: 'Color assigned to the summary bars of the projects (e.g., Orange).',
         defaultValue: '#E65100',
-        category: ['Leyenda y Estados'],
+        category: ['Legend and Statuses'],
       })
       .addColorPicker({
         path: 'actIniciadaColor',
-        name: 'Color de Actividad Iniciada',
-        description: 'Color asignado a actividades en estado "Iniciada" / "En Progreso" (ej: Verde).',
+        name: 'Activity Started Color',
+        description: 'Color assigned to activities in "Started" / "In Progress" status (e.g., Green).',
         defaultValue: '#2E7D32',
-        category: ['Leyenda y Estados'],
+        category: ['Legend and Statuses'],
       })
       .addColorPicker({
         path: 'actFinalizadaColor',
-        name: 'Color de Actividad Finalizada',
-        description: 'Color asignado a actividades en estado "Finalizada" / "Completado" (ej: Azul).',
+        name: 'Activity Completed Color',
+        description: 'Color assigned to activities in "Completed" / "Finished" status (e.g., Blue).',
         defaultValue: '#1565C0',
-        category: ['Leyenda y Estados'],
+        category: ['Legend and Statuses'],
       })
       .addColorPicker({
         path: 'actCreadaColor',
-        name: 'Color de Actividad Creada',
-        description: 'Color asignado a actividades en estado "Creada" / "Pendiente" / "Nueva" (ej: Amarillo/Dorado).',
+        name: 'Activity Created Color',
+        description: 'Color assigned to activities in "Created" / "Pending" status (e.g., Yellow/Gold).',
         defaultValue: '#D4AF37',
-        category: ['Leyenda y Estados'],
+        category: ['Legend and Statuses'],
       })
 
-      // --- Grupo 5: Diseño y Estilo del Panel ---
+      // --- Group 5: Design and Styling ---
       .addNumberInput({
         path: 'labelWidth',
-        name: 'Ancho de Columna de Etiquetas (px)',
-        description: 'Ancho en píxeles de la columna de estructura jerárquica de la izquierda.',
+        name: 'Label Column Width (px)',
+        description: 'Width in pixels of the left-hand hierarchical structure column.',
         defaultValue: 240,
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       })
       .addNumberInput({
         path: 'barHeight',
-        name: 'Altura de Barra (px)',
-        description: 'Grosor de la barra de la tarea en píxeles.',
+        name: 'Bar Height (px)',
+        description: 'Height of the task bars in pixels.',
         defaultValue: 32,
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       })
       .addNumberInput({
         path: 'rowSpacing',
-        name: 'Espaciado de Fila (px)',
-        description: 'Margen vertical de separación entre filas.',
+        name: 'Row Spacing (px)',
+        description: 'Vertical spacing separating the timeline rows.',
         defaultValue: 10,
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       })
       .addNumberInput({
         path: 'activityFontSize',
-        name: 'Tamaño de Letra en Actividades (px)',
-        description: 'Tamaño de fuente para las etiquetas dentro de las barras de actividad.',
+        name: 'Activity Font Size (px)',
+        description: 'Font size for label text inside activity bars.',
         defaultValue: 10,
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       })
       .addNumberInput({
         path: 'projectFontSize',
-        name: 'Tamaño de Letra en Proyectos (px)',
-        description: 'Tamaño de fuente para las etiquetas dentro de las barras de resumen de proyecto.',
+        name: 'Project Font Size (px)',
+        description: 'Font size for label text inside project summary bars.',
         defaultValue: 11,
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       })
       .addColorPicker({
         path: 'defaultBarColor',
-        name: 'Color por Defecto',
-        description: 'Color predeterminado si el registro no define un color o estado específico.',
+        name: 'Default Color',
+        description: 'Fallback color if the database record does not specify a color or status.',
         defaultValue: '#3B82F6',
-        category: ['Diseño y Estilo'],
+        category: ['Design and Styling'],
       });
   });
