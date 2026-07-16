@@ -4,7 +4,7 @@ This guide details the steps to populate test data and validate the functionalit
 
 ---
 
-## 1. Database Schema Setup
+## 1. Database Schema Setup (Standard Method)
 
 To test all panel features (multi-level hierarchies, progress tracking, status colors, and legend rendering), we recommend creating a tasks table with the following structure (Transact-SQL / SQL Server example):
 
@@ -25,7 +25,7 @@ CREATE TABLE TareasCronograma (
 
 ---
 
-## 2. Populating Test Data
+## 2. Populating Test Data (Standard Method)
 
 Execute the following SQL script to insert a realistic hierarchical dataset (two projects under different management departments with several activities):
 
@@ -49,22 +49,27 @@ VALUES
 
 ---
 
-## 3. Panel Configuration in Grafana
+## 3. Quick Zero-Setup Method (No Tables Needed)
+
+If you want to evaluate the panel instantly without creating tables or inserting data, connect your PostgreSQL or MySQL database and run the following self-contained query. It generates static rows dynamically:
+
+### For PostgreSQL / MySQL:
+```sql
+SELECT 'Plan & Design' AS name, NOW() - INTERVAL '5 days' AS start_time, NOW() - INTERVAL '2 days' AS end_time, 'Project Alfa' AS category, 'Operations' AS Gerencia, 1.0 AS progress, '#1565C0' AS color, 'Completed' AS status
+UNION ALL
+SELECT 'Excavation' AS name, NOW() - INTERVAL '2 days' AS start_time, NOW() + INTERVAL '2 days' AS end_time, 'Project Alfa' AS category, 'Operations' AS Gerencia, 0.45 AS progress, '#2E7D32' AS color, 'In Progress' AS status
+UNION ALL
+SELECT 'Requirements' AS name, NOW() - INTERVAL '8 days' AS start_time, NOW() - INTERVAL '4 days' AS end_time, 'Project Beta' AS category, 'IT Dept' AS Gerencia, 1.0 AS progress, '#1565C0' AS color, 'Completed' AS status
+UNION ALL
+SELECT 'Backend Development' AS name, NOW() - INTERVAL '4 days' AS start_time, NOW() + INTERVAL '6 days' AS end_time, 'Project Beta' AS category, 'IT Dept' AS Gerencia, 0.75 AS progress, '#2E7D32' AS color, 'In Progress' AS status;
+```
+
+---
+
+## 4. Panel Configuration in Grafana
 
 1. Add a new panel of type **Hierarchical Gantt Schedule** to your Grafana dashboard.
-2. Configure the SQL query to read from the test table:
-   ```sql
-   SELECT 
-       Actividad AS name,
-       FechaInicio AS start_time,
-       FechaFin AS end_time,
-       Proyecto AS category,
-       Gerencia,
-       Progreso AS progress,
-       ColorHex AS color,
-       Estado AS estado
-   FROM TareasCronograma;
-   ```
+2. Paste either the Standard Query (from Section 1) or the Zero-Setup Query (from Section 3) into your SQL editor.
 3. In the options panel on the right, map the columns in the **Data Mapping** section:
    * **Name Column:** `name`
    * **Start Time Column:** `start_time`
