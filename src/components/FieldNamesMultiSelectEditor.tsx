@@ -45,7 +45,7 @@ export const FieldNamesMultiSelectEditor: React.FC<StandardEditorProps<string[],
       onChange={(selected) => {
         onChange(selected.map((opt) => opt.value!));
       }}
-      placeholder="Selecciona columnas de agrupación..."
+      placeholder="Select grouping columns..."
     />
   );
 };

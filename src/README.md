@@ -1,47 +1,47 @@
-# Cronograma (Gantt) - Panel Plugin de Grafana
+# Schedule (Gantt) - Grafana Panel Plugin
 
-Un plugin de panel altamente interactivo, dinámico y estéticamente premium para Grafana que permite visualizar cronogramas y líneas de tiempo tipo **Gantt**.
+A highly interactive, dynamic, and premium-designed panel plugin for Grafana that enables the visualization of schedules and timelines as **Gantt** charts.
 
-Desarrollado y mantenido por **DkCorpBo**.
+Developed and maintained by **DkCorpBo**.
 
-![Vista Previa del Plugin](https://raw.githubusercontent.com/DkCorpBo/cronograma-gantt-panel/main/src/img/preview.png)
+![Plugin Preview](https://raw.githubusercontent.com/DkCorpBo/cronograma-gantt-panel/main/src/img/preview.png)
 
 ---
 
-## ✨ Características Principales
+## ✨ Key Features
 
-### 📁 Estructura Jerárquica e Hilos de Agrupación Ilimitados
-* **Agrupación en cascada dinámica:** Permite seleccionar múltiples columnas de la consulta de base de datos a través de una barra de etiquetas interactiva (ej: `Gerencia > Equipo > Proyecto`).
-* **Niveles ilimitados:** Sin límites artificiales de profundidad. Puedes agrupar tus actividades por tantos niveles jerárquicos como necesites.
-* **Colapso/Expansión:** Carpetas y proyectos con controles `▶` y `▼` para optimizar el espacio en dashboards complejos.
+### 📁 Hierarchical Structure and Unlimited Grouping Threads
+* **Dynamic Cascade Grouping:** Allows selecting multiple columns from the database query via an interactive tag bar (e.g., `Management > Team > Project`).
+* **Unlimited Levels:** No artificial depth limits. You can group your activities by as many hierarchical levels as you need.
+* **Collapse/Expand:** Folders and projects with `▶` and `▼` controls to optimize space in complex dashboards.
 
-### 🟠 Barras de Resumen de Proyectos
-* Las agrupaciones de nivel inferior (proyectos) se pintan de forma predeterminada en color **Naranja Premium** (`#E65100`).
-* Muestran el nombre del proyecto centrado directamente en su barra.
-* Calculan de forma automática la barra de progreso promedio y el rango temporal (fecha mínima y máxima) en base al estado de sus actividades hijas.
+### 🟠 Project Summary Bars
+* Lower-level groupings (projects) are colored in **Premium Orange** (`#E65100`) by default.
+* Display the project name centered directly on their bar.
+* Automatically calculate the average progress bar and time range (minimum and maximum date) based on the status of their child activities.
 
-### 🎨 Leyenda y Coloreo Automático por Estado (SQL)
-* **Colores por Estado Automatizados:** Si no se define un color en la consulta SQL, el plugin lee la columna `Estado` (o `status`) y asigna colores automáticamente:
-  * 🟢 **Actividad Iniciada** (`Iniciada`, `Iniciado`, `En Progreso`) -> Verde.
-  * 🔵 **Actividad Finalizada** (`Finalizada`, `Finalizado`, `Completado`, `Completada`) -> Azul.
-  * 🟡 **Actividad Creada** (`Creada`, `Creado`, `Pendiente`, `Nueva`, `Nuevo`) -> Amarillo/Dorado.
-* **100% Configurable:** Puedes activar/desactivar la barra de leyenda superior y personalizar cada uno de estos colores desde la barra lateral derecha del editor.
+### 🎨 Legend and Automatic Coloring by Status (SQL)
+* **Automated Colors by Status:** If no color is defined in the SQL query, the plugin reads the `Estado` (or `status`) column and automatically assigns colors:
+  * 🟢 **Started Activity** (`Iniciada`, `Iniciado`, `En Progreso`, `Started`, `In Progress`) -> Green.
+  * 🔵 **Completed Activity** (`Finalizada`, `Finalizado`, `Completado`, `Completada`, `Finished`, `Completed`) -> Blue.
+  * 🟡 **Created Activity** (`Creada`, `Creado`, `Pendiente`, `Nueva`, `Nuevo`, `Created`, `Pending`, `New`) -> Yellow/Gold.
+* **100% Configurable:** You can toggle the top legend bar and customize each of these colors from the editor's right sidebar.
 
-### 🔍 Controles Temporales Interactivos y Zoom
-* **Navegación Intuitiva:** Botones integrados de `Acercar` (Zoom In), `Alejar` (Zoom Out), `Izquierda` (Pan Left), `Derecha` (Pan Right) y `Restablecer Rango` al período temporal de la consulta global de Grafana.
-* **Zoom con Rueda:** Haz zoom continuo girando la rueda del ratón (Mouse Wheel Zoom) centrado en la posición de tu cursor.
-* **Desplazamiento con Arrastre:** Mantén presionado el clic y arrastra lateralmente para desplazarte (pan/drag) a lo largo del tiempo.
-* **Indicador Temporal "Ahora":** Una línea roja vertical discontinua con la etiqueta "Ahora" que se actualiza en tiempo real en base a la hora de tu servidor/máquina local.
+### 🔍 Interactive Time Controls and Zoom
+* **Intuitive Navigation:** Integrated buttons for `Zoom In`, `Zoom Out`, `Pan Left`, `Pan Right`, and `Reset Range` to the global Grafana query time range.
+* **Scroll Zoom:** Smooth continuous zoom using the mouse wheel (Mouse Wheel Zoom) centered on your cursor position.
+* **Drag-to-Scroll:** Left-click and drag horizontally to pan across time.
+* **"Now" Time Indicator:** A dashed vertical red line with the label "Now" that updates in real-time based on your local machine/server time.
 
-### 💬 Sistema de Doble Tooltip (Hover y Clic Fijo)
-* **Hover Ligero:** Al pasar el cursor por encima de una barra, aparece de forma instantánea una burbuja oscura que muestra el nombre de la tarea sin bloquear la vista ni clics.
-* **Clic Fijo con Detalles:** Al hacer clic izquierdo en una barra de actividad o proyecto, se abre un tooltip interactivo fijo en el punto de clic con:
-  * Nombre de la tarea, fechas exactas de inicio y fin, duración y progreso.
-  * **Campos Extra Dinámicos:** Puedes definir en una caja de texto qué columnas adicionales de tu consulta (ej: `estado, responsable, prioridad`) quieres mostrar en esta ficha de detalles.
-  * **Data Links Integrados:** Un botón con enlace directo (`href` y `target`) para navegar a otras pantallas de detalles nativos de Grafana.
+### 💬 Dual Tooltip System (Hover and Click-to-Pin)
+* **Lightweight Hover:** Hovering over a bar instantly displays a dark bubble showing the task name without blocking the view or clicks.
+* **Pinned Details Click:** Left-clicking an activity or project bar opens an interactive tooltip pinned at the click point:
+  * Task name, exact start and end dates, duration, and progress.
+  * **Dynamic Extra Fields:** You can define in a text box which additional columns from your query (e.g., `estado, responsable, prioridad`) you want to display in this detail card.
+  * **Integrated Data Links:** A button with a direct link (`href` and `target`) to navigate to other native Grafana detail dashboards.
 
-### 📐 Tipografía Ultranítida y Diseños Flexibles
-* **Suavizado de Fuente (Font-Smoothing antialiasing):** Aplicado por CSS para garantizar bordes limpios en textos pequeños dentro del SVG.
-* **Peso Semibold (600):** Elimina la difuminación/borrosidad en textos pequeños en negrita.
-* **Alineación Vertical Fija:** La primera línea de texto de las actividades y proyectos se posiciona de forma fija y verticalmente centrada; si el texto es muy largo, las líneas secundarias fluyen hacia abajo y se recortan limpiamente al borde inferior (`overflow: hidden`) sin mover la línea principal.
-* **Tamaños de Letra Configurables:** Ajusta el tamaño de fuente para actividades y proyectos en píxeles de forma independiente.
+### 📐 Ultra-crisp Typography and Flexible Layouts
+* **Font Smoothing (Antialiasing):** Applied via CSS to ensure clean edges on small text within the SVG.
+* **Semibold Weight (600):** Eliminates blurriness in small bold text.
+* **Fixed Vertical Alignment:** The first line of text for activities and projects is vertically centered in a fixed position; if the text is too long, secondary lines flow downward and are clipped cleanly at the bottom edge (`overflow: hidden`) without shifting the main line.
+* **Configurable Font Sizes:** Separately adjust font sizes for activities and projects in pixels.

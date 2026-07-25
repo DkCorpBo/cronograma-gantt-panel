@@ -1,7 +1,22 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { PanelProps, dateTimeFormat, LinkModel } from '@grafana/data';
+import { PanelProps, dateTimeFormat, LinkModel, GrafanaTheme2 } from '@grafana/data';
 import { CronogramaOptions } from '../types';
-import { useTheme2 } from '@grafana/ui';
+import { useTheme2, useStyles2 } from '@grafana/ui';
+import { css } from '@emotion/css';
+
+// Estilos encapsulados con Emotion para el panel
+const getStyles = (theme: GrafanaTheme2) => {
+  return {
+    labelLink: css`
+      text-decoration: none !important;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+      &:hover {
+        text-decoration: underline !important;
+        color: ${theme.colors.text.link} !important;
+      }
+    `,
+  };
+};
 
 // Interfaz para representar un evento parseado listo para procesar
 interface TaskItem {
@@ -44,6 +59,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
   timeRange,
 }) => {
   const theme = useTheme2();
+  const styles = useStyles2(getStyles);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipTimeoutRef = useRef<number | null>(null);
@@ -692,26 +708,14 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
       onMouseMove={handleMouseMoveContainer}
       onMouseUp={handleMouseUp}
     >
-      {/* Definición de estilos globales para hover de enlaces estilo Grafana oficial */}
-      <style>{`
-        .cronograma-label-link {
-          text-decoration: none !important;
-          transition: color 0.15s ease, text-decoration 0.15s ease;
-        }
-        .cronograma-label-link:hover {
-          text-decoration: underline !important;
-          color: ${theme.colors.text.link} !important;
-        }
-      `}</style>
-
       {/* 1. Barra de Controles Responsive */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: theme.spacing(1),
           height: `${controlsHeight}px`,
-          padding: '0 8px',
+          padding: theme.spacing(0, 1),
           borderBottom: `1px solid ${theme.colors.border.weak}`,
           backgroundColor: theme.colors.background.secondary,
           boxSizing: 'border-box',
@@ -730,7 +734,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
           {isCompact ? '➡️' : '➡️ Pan Right'}
         </button>
         {width >= 800 && (
-          <div style={{ fontSize: '11px', color: theme.colors.text.secondary, marginLeft: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: '11px', color: theme.colors.text.secondary, marginLeft: theme.spacing(1.5), whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             💡 <em>Tip: Click bars for details. Drag to pan the timeline, scroll to zoom.</em>
           </div>
         )}
@@ -747,26 +751,26 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             alignItems: 'center',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: '24px',
+            gap: theme.spacing(3),
             height: `${legendHeight}px`,
             borderBottom: `1px solid ${theme.colors.border.weak}`,
             backgroundColor: theme.colors.background.secondary,
             boxSizing: 'border-box',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1) }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedProjectColor }} />
             <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Project</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1) }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActIniciadaColor }} />
             <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity In Progress</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1) }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActFinalizadaColor }} />
             <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity Completed</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1) }}>
             <div style={{ width: '14px', height: '14px', borderRadius: '4px', backgroundColor: resolvedActCreadaColor }} />
             <span style={{ fontSize: '11px', fontWeight: 'bold', color: theme.colors.text.primary }}>Activity Created</span>
           </div>
@@ -789,7 +793,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             borderRight: `2px solid ${theme.colors.border.strong}`,
             display: 'flex',
             alignItems: 'center',
-            paddingLeft: '12px',
+            paddingLeft: theme.spacing(1.5),
             fontSize: '12px',
             fontWeight: 'bold',
             color: theme.colors.text.secondary,
@@ -822,7 +826,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                 }}
               >
                 <span style={{ color: theme.colors.text.secondary }}>{tick.label}</span>
-                <div style={{ width: '1px', height: '5px', backgroundColor: theme.colors.border.strong, marginTop: '2px' }} />
+                <div style={{ width: '1px', height: '5px', backgroundColor: theme.colors.border.strong, marginTop: theme.spacing(0.25) }} />
               </div>
             );
           })}
@@ -875,7 +879,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                     height: `${rowHeight}px`,
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: `${row.indent * 18 + 8}px`,
+                    paddingLeft: `calc(${row.indent * 18}px + ${theme.spacing(1)})`,
                     fontSize: isHeader ? '13px' : '12px',
                     fontWeight: isHeader ? 'bold' : 'normal',
                     borderBottom: `1px solid ${theme.colors.border.weak}`,
@@ -894,7 +898,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                       }}
                       style={{
                         cursor: 'pointer',
-                        marginRight: '6px',
+                        marginRight: theme.spacing(0.75),
                         display: 'inline-block',
                         width: '12px',
                         textAlign: 'center',
@@ -911,7 +915,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                         handleElementClick(row.task, e);
                       }
                     }}
-                    className={hasLinkLabel ? 'cronograma-label-link' : undefined}
+                    className={hasLinkLabel ? styles.labelLink : undefined}
                     style={{
                       cursor: 'pointer',
                       color: isHeader ? theme.colors.text.primary : theme.colors.text.secondary,
@@ -1308,7 +1312,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             color: theme.colors.text.primary,
             border: `2px solid ${theme.colors.primary.main}`,
             borderRadius: '6px',
-            padding: '12px',
+            padding: theme.spacing(1.5),
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
             zIndex: 9999,
             pointerEvents: 'auto',
@@ -1325,15 +1329,15 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             }}
             style={{
               position: 'absolute',
-              top: '6px',
-              right: '8px',
+              top: theme.spacing(0.75),
+              right: theme.spacing(1),
               background: 'none',
               border: 'none',
               color: theme.colors.text.secondary,
               cursor: 'pointer',
               fontSize: '12px',
               fontWeight: 'bold',
-              padding: '2px',
+              padding: theme.spacing(0.25),
               outline: 'none',
             }}
             title="Close details"
@@ -1341,17 +1345,17 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             ✖
           </button>
 
-          <div style={{ fontWeight: 'bold', fontSize: '13px', marginBottom: '6px', color: pinnedTask.color, paddingRight: '16px' }}>
+          <div style={{ fontWeight: 'bold', fontSize: '13px', marginBottom: theme.spacing(0.75), color: pinnedTask.color, paddingRight: theme.spacing(2) }}>
             {pinnedTask.name}
           </div>
           
           {pinnedTask.id.startsWith('g:') || pinnedTask.id.startsWith('p:') ? (
             <>
-              <div style={{ marginBottom: '4px' }}>
+              <div style={{ marginBottom: theme.spacing(0.5) }}>
                 <span style={{ color: theme.colors.text.secondary }}>Type:</span>{' '}
                 <strong style={{ color: theme.colors.text.primary }}>Rollup Summary</strong>
               </div>
-              <div style={{ marginBottom: '4px' }}>
+              <div style={{ marginBottom: theme.spacing(0.5) }}>
                 <span style={{ color: theme.colors.text.secondary }}>Project:</span>{' '}
                 <strong style={{ color: theme.colors.text.primary }}>{pinnedTask.category}</strong>
               </div>
@@ -1363,7 +1367,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                 const isLast = idx === hierarchyFields.length - 1;
                 const label = isLast ? 'Project' : `Level ${idx + 1} (${fName})`;
                 return (
-                  <div key={idx} style={{ marginBottom: '4px' }}>
+                  <div key={idx} style={{ marginBottom: theme.spacing(0.5) }}>
                     <span style={{ color: theme.colors.text.secondary }}>{label}:</span>{' '}
                     <strong style={{ color: theme.colors.text.primary }}>{val}</strong>
                   </div>
@@ -1372,19 +1376,19 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
             </>
           )}
           
-          <div style={{ marginBottom: '4px' }}>
+          <div style={{ marginBottom: theme.spacing(0.5) }}>
             <span style={{ color: theme.colors.text.secondary }}>Start:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{dateTimeFormat(pinnedTask.startTime, { format: 'YYYY-MM-DD HH:mm:ss' })}</strong>
           </div>
-          <div style={{ marginBottom: '4px' }}>
+          <div style={{ marginBottom: theme.spacing(0.5) }}>
             <span style={{ color: theme.colors.text.secondary }}>End:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{dateTimeFormat(pinnedTask.endTime, { format: 'YYYY-MM-DD HH:mm:ss' })}</strong>
           </div>
-          <div style={{ marginBottom: '4px' }}>
+          <div style={{ marginBottom: theme.spacing(0.5) }}>
             <span style={{ color: theme.colors.text.secondary }}>Duration:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{formatDuration(pinnedTask.endTime - pinnedTask.startTime)}</strong>
           </div>
-          <div style={{ marginBottom: '6px' }}>
+          <div style={{ marginBottom: theme.spacing(0.75) }}>
             <span style={{ color: theme.colors.text.secondary }}>Progress:</span>{' '}
             <strong style={{ color: theme.colors.text.primary }}>{Math.round(pinnedTask.progress * 100)}%</strong>
           </div>
@@ -1407,7 +1411,7 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
               }
               const val = getValue(field, pinnedTask.rowIndex);
               return (
-                <div key={`extra-${idx}`} style={{ marginBottom: '4px' }}>
+                <div key={`extra-${idx}`} style={{ marginBottom: theme.spacing(0.5) }}>
                   <span style={{ color: theme.colors.text.secondary }}>{field.name}:</span>{' '}
                   <strong style={{ color: theme.colors.text.primary }}>{String(val ?? 'N/A')}</strong>
                 </div>
@@ -1432,8 +1436,8 @@ export const CronogramaPanel: React.FC<PanelProps<CronogramaOptions>> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginTop: '8px',
-                    padding: '6px 12px',
+                    marginTop: theme.spacing(1),
+                    padding: theme.spacing(0.75, 1.5),
                     backgroundColor: theme.colors.background.canvas,
                     border: `1px solid ${theme.colors.border.strong}`,
                     borderRadius: '4px',
@@ -1470,7 +1474,7 @@ const buttonStyle = (theme: any) => ({
   border: `1px solid ${theme.colors.border.strong}`,
   color: theme.colors.text.primary,
   borderRadius: '4px',
-  padding: '4px 10px',
+  padding: theme.spacing(0.5, 1.25),
   fontSize: '11px',
   cursor: 'pointer',
   display: 'inline-flex',
