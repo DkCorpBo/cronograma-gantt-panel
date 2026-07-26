@@ -19,5 +19,6 @@ jobs:
       - name: Build, Sign and Release Plugin with Grafana Action
         uses: grafana/plugin-actions/build-plugin@main
         with:
+          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
           attestation: false
           draft: false
