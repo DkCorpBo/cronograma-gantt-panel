@@ -20,5 +20,5 @@ jobs:
         uses: grafana/plugin-actions/build-plugin@main
         with:
           policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
-          attestation: true
+          attestation: false
           draft: false
