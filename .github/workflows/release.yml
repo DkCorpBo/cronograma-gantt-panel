@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
@@ -14,35 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4.2.0
+      - name: Build, Sign and Release Plugin with Grafana Action
+        uses: grafana/plugin-actions/build-plugin@main
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build plugin
-        run: npm run build
-
-      - name: Package plugin
-        run: |
-          mkdir -p temp-pack/dkcorpbo-cronograma-panel
-          cp -r dist/* temp-pack/dkcorpbo-cronograma-panel/
-          cd temp-pack
-          zip -r ../dkcorpbo-cronograma-panel-1.0.7.zip dkcorpbo-cronograma-panel
-          cd ..
-          rm -rf temp-pack
-          sha1sum dkcorpbo-cronograma-panel-1.0.7.zip | awk '{print $1}' > dkcorpbo-cronograma-panel-1.0.7.zip.sha1
-
-      - name: Create GitHub Release and Upload Assets
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dkcorpbo-cronograma-panel-1.0.7.zip
-            dkcorpbo-cronograma-panel-1.0.7.zip.sha1
+          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
+          attestation: true
           draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

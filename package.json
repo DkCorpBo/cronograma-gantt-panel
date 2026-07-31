@@ -1,6 +1,6 @@
 {
   "name": "cronograma-panel",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
@@ -72,6 +72,9 @@
   "packageManager": "yarn@1.22.22",
   "overrides": {
     "minimatch": "^9.0.7",
-    "serialize-javascript": "^7.0.7"
+    "serialize-javascript": "^7.0.7",
+    "brace-expansion": ">=5.0.8 || >=2.0.1",
+    "fast-uri": ">=3.1.4 || >=4.1.1",
+    "postcss": "^8.5.18"
   }
 }
