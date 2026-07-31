@@ -16,9 +16,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
 
-      - name: Build, Sign and Release Plugin with Grafana Action
-        uses: grafana/plugin-actions/build-plugin@main
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.2.0
         with:
-          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
-          attestation: true
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Package plugin
+        run: |
+          mkdir -p temp-pack/dkcorpbo-cronograma-panel
+          cp -r dist/* temp-pack/dkcorpbo-cronograma-panel/
+          cd temp-pack
+          zip -r ../dkcorpbo-cronograma-panel-1.0.8.zip dkcorpbo-cronograma-panel
+          cd ..
+          rm -rf temp-pack
+          sha1sum dkcorpbo-cronograma-panel-1.0.8.zip | awk '{print $1}' > dkcorpbo-cronograma-panel-1.0.8.zip.sha1
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2.2.0
+        with:
+          subject-path: 'dkcorpbo-cronograma-panel-1.0.8.zip'
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dkcorpbo-cronograma-panel-1.0.8.zip
+            dkcorpbo-cronograma-panel-1.0.8.zip.sha1
           draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
